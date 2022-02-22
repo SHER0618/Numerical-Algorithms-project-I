@@ -1,0 +1,29 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Sextuple-shift-QR-iteration}
+  \label{alg::Sextuple-shift-QR-iteration}
+  \begin{algorithmic}[1]
+    \Require $H$: a hessenberg matrix
+    \Ensure $H$: a hessenberg matrix;$W$: a n*6 matrix, stored n-1 household vectors
+    \State\(a=poly(H(n-5:n,n-5:n))\)
+    \State\(vector=polyvalm(a,H(1:7,1:7))\)
+    \For{$k=0$ to $n-3$}
+      \State\(w=household(vector)\)
+      \State\(q=max[1,k]\)
+      \State\(r=min[k+8,n]\)
+      \State\(W(1:7,k+1)=w\);   
+      \State\(H(k+1:k+7,q:n)=(I-2w{w^T})H(k+1:k+7,q:n)\)
+      \State\(H(1:r,k+1:k+7)=H(1:r,k+1:k+7)(I-2w{w^T})\)
+      \If {\(k<n-7\)} 
+      \State \(vector=H(k+2:k+8,k+1)\)
+      \EndIf
+    \EndFor
+    \For{$i=1$ to $5$}
+      \State\(w=household(H(n-6+i:n,n-7+i))\);
+      \State\(W(1:7-i,n-6+i)=w\)
+      \State\(H(n-6+i:n,n-7+i:n)=(I-2w{w^T})H(n-6+i:n,n-7+i:n)\)
+      \State\(H(1:n,n-6+i:n)=H(1:n,n-6+i:n)(I-2w{w^T})\)
+    \EndFor
+  \end{algorithmic}
+\end{breakablealgorithm}

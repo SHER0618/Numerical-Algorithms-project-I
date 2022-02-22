@@ -1,0 +1,48 @@
+The Aggressive Early Deflation, a strategy for trailing principal submatrix convergence, can increase the speed of convergence.
+
+Suppose we use some eigenvalues of \(H_{33}\) to do a small-bulge multishift QR iteration, (the order of \(H_{33}\) should be bigger than the number of shifts), and H can be expressed as:
+\[\begin{array}{*{20}{c}}
+{H = \left[ {\begin{array}{*{20}{c}}
+{{H_{11}}}&{{H_{12}}}&{{H_{13}}}\\
+0&{{H_{22}}}&{{H_{23}}}\\
+0&{{H_{23}}}&{{H_{33}}}
+\end{array}} \right]}&{\begin{array}{*{20}{c}}
+{n - p - 1}\\
+1\\
+p
+\end{array}}\\
+{\begin{array}{*{20}{c}}
+{n - p - 1}&1&p
+\end{array}}&{}
+\end{array}\]
+Where \(H_{23}\) is a vector with only one non-zero element at the first position.
+
+Now we do an assumable strategy: Do a real-schur decomposition to \(H_{33}\), this action will recursively call the program that solves the real-schur decomposition, until this matrix is small enough to use the Sextuple-Shift-QR-Algorithm.
+
+Just suppose we finish this programm, which means we can call this function to get real-schur decomposition of \(H_{33}\) and orthogonal transformation matrix \(\widetilde Q\), put this matrix to \(H_{32}\) and you can get a full vector. After observation, it was found that this vector has many elements close to 0, which usually concentrated at the bottom of the vector, of course, sometimes it appears in the middle of the vector. Meanwhile, there are still some elements of are not near to zero. The index of the element in the vector corresponds to the position of the eigenvalue in the upper quasi-triangular matrix, and the vector elements corresponding to a pair of eigenvalues of a conjugate complex eigenvalues will converges at the same time. Then if converged element is not at the bottom of vector, do a \(orderschur\) to swap it to the bottom.(This process is not programmed by me, because I observed that in most cases, eigenvalues converge from bottom to top.) If there are enough eigenvalues converge, we put this orthogonal transformation matrix \(\widetilde Q\) to \(\left[ {\begin{array}{*{20}{c}}
+{{H_{13}}}\\
+{{H_{23}}}
+\end{array}} \right]\) and \(H_{32}\). Then the matrix becomes the following blocked form:
+\[{\begin{array}{*{20}{c}}
+{H = \begin{array}{*{20}{c}}
+{{H_{11}}}&{{H_{12}}}&{{H_{13}}}&{{H_{14}}}\\
+0&{{H_{22}}}&{{H_{23}}}&{{H_{24}}}\\
+0&s&{{T_{11}}}&{{T_{12}}}\\
+0&\varepsilon &0&{{T_{22}}}
+\end{array}}&{\begin{array}{*{20}{c}}
+{n - p - 1}\\
+1\\
+k\\
+r
+\end{array}}\\
+{\begin{array}{*{20}{c}}
+{n - p - 1}&1&k&r
+\end{array}}&{}
+\end{array}}\]
+
+And we can find that r eigenvalues converge and \(s\) is much bigger than \(\varepsilon\), a more specific mathematical representation is \({{{\left\| s \right\|}_2} < tol \cdot {{\left\| \varepsilon  \right\|}_2}}\). Then just igonre \(\varepsilon\), we solve r eigenvalues and then just need to transform \(H\) to a hessenberg matrix again. This process can use Givens rotations from the bottom of \(s\), it cost \(k-1\) Givens rotations to transform H into a hessenberg matrix, then we solve a smaller eigenvalue system.
+
+Based on the above discussion, we can get the \textbf{Algorithm 7}
+\input{Aggressive-Early-Deflation}
+
+In my Matlab source code, I use full-hessenberg reduction to transform \(H\) after deflation.(Because the givens rotations often go wrong) And according to\cite{AED}, we can use the eigenvalue in \(T_{11}\) to do iteration, but I don't program well according to this principle. It may be that the eigenvalue of \(T_{11}\) is not the part of the eigenvalue of the trailing principal submatrix.

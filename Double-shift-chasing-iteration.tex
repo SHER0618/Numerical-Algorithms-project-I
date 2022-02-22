@@ -1,0 +1,43 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Double-shift-chasing-iteration}
+  \label{alg::Double-shift-chasing-iteration}
+  \begin{algorithmic}[1]
+    \Require $H$: a hessenberg matrix;
+    \Ensure 
+    $H$: a hessenberg matrix;
+
+    $m$: we use 2m shifts;
+    $k$: the length for each move;
+
+    $Ava$:do Ava full movings;
+    $least$:do a moving at last with length of least
+
+    $W$: a three-dimensional array, stored orthogonal transform matrix
+    \State choose m and k and compute Ava and least
+    \State choose 2m eigenvalue
+    \For{$i=1$ to $m$}
+    \State use a pair of complex conjugate eigenvalues or two real eigenvalues to create a vector, transform it to the position \(3*m-i,3*m-i\)
+    \State compute orthogonal transform matrix \({\widetilde Q}\) with order of \(3m+1\)
+    \EndFor
+    \State put \({\widetilde Q}\) to \(H(1:3m+1,3m+2:n)\)
+    \For {$i=1$ to $Ava$}
+    \For {$t=1$ to $k$}
+    \State move \({{t^{th}}}\) small-bulge down along with the diagonal line k-steps at once
+    \State compute orthogonal transform matrix \({\widetilde Q}\) with order of \(3m+k+1\)
+    \EndFor
+    \State put \({\widetilde Q}\) to \(H(1:k(i-1),1+k(i-1):3m+ki+1)\) and \(H(1+k(i-1):3m+ki+1,3m+ki+2:n)\)
+    \EndFor
+    \For {$t=1$ to $least$}
+\State move \(t^{th}\) small-bulge down along with the diagonal line least-steps at once
+    \State compute orthogonal transform matrix \({\widetilde Q}\) with order of \(3m+k+1\)
+    \EndFor
+    \State put \({\widetilde Q}\) to \(H(1:ki,1+ki:n)\)
+    \For {$i=m$ to $1$}
+    \State Starting at the bottom of the matrix, apply each small-bulge to the bottom of the matrix.
+    \State compute orthogonal transform matrix \({\widetilde Q}\) with order of \(3m+1\)
+    \EndFor
+    \State put \({\widetilde Q}\) to \(H(1:n-3m-1,n-3m:n)\)
+ \end{algorithmic}
+\end{breakablealgorithm}

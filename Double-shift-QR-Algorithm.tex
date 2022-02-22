@@ -1,0 +1,53 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Double-shift-QR-algorithm}
+  \label{alg::Double-shift-QR-algorithm}
+  \begin{algorithmic}[1]
+  \Require $A$:a dense matrix; $flag$:flag equals 0 means this matrix is a hessenberg matrix
+  \Ensure $E$:all eigenvalue of A;$H$:a real-schur form matrix;$Q$:orthogonal transform matrix satisfy \(AQ=QH\)
+  \State\(Q={I_n}\);
+  \If {\(flag=1\)}
+    \State\([Q,H]=hessenberg(H)\)
+  \EndIf
+  \State\(i=1\);
+  \State\(m=n\);
+  \State\(tol={10^{-15}}\);
+  \While{\(m-i+1>2\)}
+  \State\([W,H(i:m,i:m)]=\)double-shift-QR-iteration(\(H(i:m,i:m)\));
+  \State put these household vector to orthogonal transform matrix $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\)
+  \State Finding converged eigenvalues in the upper left corner of (\(H(i:m,i:m)\))
+  \State Finding converged eigenvalues in the lower right corner of (\(H(i:m,i:m)\))
+  \If{There is no converged eigenvalue}
+    \State Continue
+  \EndIf
+  \If{a real eigenvalue converges}
+    \If{\(H(i+1,i)<tol\)}
+      \State\(E(i,1)=H(i,i)\)
+      \State\(i=i+1\)
+    \EndIf
+   \If{\(H(m,m-1)<tol\)}
+      \State\(E(m,1)=H(m,m)\)
+      \State\(m=m-1\)
+    \EndIf
+  \EndIf
+  \If{two eigenvalues converge}
+    \If{\(H(i+2,i+1)<tol\)}
+      \State Judge whether this 2\(\times\)2 matrix has two real eigenvalues or a pair of conjugate complex eigenvalues
+      \State Compute eigenvalue of this 2\(\times\)2 matrix
+      \State\(i=i+2\)
+    \EndIf
+   \If{\(H(m-1,m-2)<tol\)}
+      \State Judge whether this 2\(\times\)2 matrix has two real eigenvalues or a pair of conjugate complex eigenvalues
+      \State Compute eigenvalue of this 2\(\times\)2 matrix
+      \State\(m=m-2\)
+    \EndIf
+  \EndIf
+  \EndWhile
+  \If{\(m>i)\)}
+    \State Judge whether this least 2\(\times\)2 matrix has two real eigenvalues or a pair of conjugate complex eigenvalues
+    \State Compute real-schur form of this least 2\(\times\)2 matrix
+    \State Put \(U\in{R^{2\times 2}}\)to $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\)
+  \EndIf
+  \end{algorithmic}
+\end{breakablealgorithm}

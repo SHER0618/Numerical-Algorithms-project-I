@@ -1,0 +1,11 @@
+To get faster convergence speed and higher computational efficiency, we are unsatisfied with introducing two shifts each time. According to the same principle, people proposed Multishift QR Algorithm. In this section, we introduce and implement the Sextuple-Implicit-Shift Strategy.
+
+As we all know, Implicit QR decomposition use a conclusion in Arnoldi process-the first column determines the whole orthogonal matrix \(Q\). So we construct a vector as a start, this vector is:
+\[\prod\limits_{i = 1}^k {(H - {\lambda _i}I){e_1}} \]
+
+Noticed that the matrix \(\prod\limits_{i = 1}^k {(H - {\lambda _i}I)} \) is the value of characteristic polynomial of \(k\times k\) trailing principal submatrix at \(H\), we can get characteristic polynomial of \(k\times k\) trailing principal submatrix with symbolic computation. Then we can prove that the vector only have k+1 non-zero elements, which is uniquely determined by \(H(1:k+1,1:k+1)\), so we can use build-in function \(poly\) and \(polyvalm\) in Matlab to compute this vector. Then do household transformation along with the diagonal line like Double-Implict-Shift. The detailed algorithm see \textbf{Algorithm 4}:
+\input{Sextuple-shift-QR-iteration}
+
+After some steps iteration, we can find convergence in both upper left and lower right of this matrix, but in Sextuple-shift-QR-iteration, it is possible to converge k eigenvalues in the upper left and lower right corner of this matrix, \(k\le6\). Then we solve schur decomposition for the matrices of order no more than six by Double-shift-QR-Algorithm. Based on the above process, we can conclude the following \textbf{Algorithm 5}:
+\input{Sextuple-shift-QR-Algorithm}
+The numerical experiments see \textbf{chapter 3}, and the Matlab source code see \textbf{The Appendix B}.

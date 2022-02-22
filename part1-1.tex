@@ -1,0 +1,37 @@
+\textbf{The Double-Implict-Shift Strategy}\cite{QR1,QR2}is published by Francis in 1961-1962, which proposed how to compute a real schur-decomposition.
+First, we take a hessenberg decomposition to a dense matrix for making it an almost upper quasi-triangular matrix, see \textbf{Algorithm 1}
+\input{Hessenberg}
+
+And then selected shifts as the eigenvalues of a trailing principal 2\(\times\)2 submatrix, the detailed algorithm see \textbf{Algorithm 2}
+\input{Double-shift-QR-iteration}
+
+After some steps iteration, we can find convergence in both upper left and lower right of this matrix, and after each iteration, it converge at most two eigenvalues in the upper left corner and lower right corner of the matrix.
+
+When it converge only one eigenvalue, it must be a real eigenvalue; when it converge two eigenvalue, most cases we get a pair of conjugate complex eigenvalues. But in some cases, the \(H(m,m-1)\) is not small enough while the \(H(m-1,m-2)\) is small enough, such as:
+\[\left( {\begin{array}{*{20}{c}}
+ \times & \times & \times \\
+{{{10}^{ - 15}}}& \times & \times \\
+0&{{{10}^{ - 7}}}& \times 
+\end{array}} \right)\]
+
+In this case, we can compute a \({2 \times 2}\) matrix \({\widetilde Q}\) in \({O(1)}\) time and put it onto $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\), such that:
+\[\left( {\begin{array}{*{20}{c}}
+ \times & \times \\
+{{{10}^{ - 7}}}& \times 
+\end{array}} \right)\widetilde Q = \widetilde Q\left( {\begin{array}{*{20}{c}}
+{{\lambda _1}}& \times \\
+0&{{\lambda _2}}
+\end{array}} \right)\]
+
+For a \({2 \times 2}\) matrix which have a pair of conjugate complex eigenvalues \(a + bi\), in this case, we can compute a \({2 \times 2}\) matrix \({\widetilde Q}\) in \({O(1)}\) time and put it onto $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\), such that:
+\[\left( {\begin{array}{*{20}{c}}
+ \times & \times \\
+ \times & \times 
+\end{array}} \right)\widetilde Q = \widetilde Q\left( {\begin{array}{*{20}{c}}
+a&m\\
+t&a
+\end{array}} \right)\]
+
+And at last, if \(m>i\) still be true, compute the real schur decompetition of last \({2 \times 2}\) matrix. In these three cases, the orthogonal matrix can be analytically obtained. Based on the above process, we can conclude the following \textbf{Algorithm 3}
+\input{Double-shift-QR-Algorithm}
+(In the Matlab source code, I use the build-in function \(schur\) to solve \({2 \times 2}\) matrix)

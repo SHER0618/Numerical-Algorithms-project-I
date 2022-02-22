@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{MQRC}
+Karen Braman and Ralph Byers.
+\newblock The multishift qr algorithm. part i: Maintaining well-focused shifts
+  and level 3 performance.
+\newblock {\em SIAM Journal on Matrix Analysis and Applications}, 23, 09 2002.
+
+\bibitem{AED}
+Karen Braman and Ralph Byers.
+\newblock The multishift qr algorithm. part ii: Aggressive early deflation.
+\newblock {\em SIAM Journal on Matrix Analysis and Applications}, 23, 09 2002.
+
+\bibitem{QR1}
+J.~Francis.
+\newblock The qr transformation a unitary analogue to the lr
+  transformation--part 1.
+\newblock {\em The Computer Journal - CJ}, 4:265--271, 03 1961.
+
+\bibitem{QR2}
+J.~G.~F. Francis.
+\newblock {The QR Transformation—Part 2}.
+\newblock {\em The Computer Journal}, 4(4):332--345, 01 1962.
+
+\end{thebibliography}

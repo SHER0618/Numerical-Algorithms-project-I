@@ -1,0 +1,31 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Aggressive-Early-Deflation}
+  \label{alg::Aggressive-Early-Deflation}
+  \begin{algorithmic}[1]
+  \Require $A$:a dense matrix; $flag$:flag equals 0 means this matrix is a hessenberg matrix
+  \Ensure $E$:all eigenvalue of A;$H$:a real-schur form matrix;$Q$:orthogonal transform matrix satisfy \(AQ=QH\)
+  \State\(Q={I_n}\);
+  \If {\(flag=1\)}
+    \State\([Q,H]=hessenberg(H)\)
+  \EndIf
+  \State\(i=1\);
+  \State\(m=n\);
+  \State\(tol={10^{-15}}\);
+  \While{\(m-i+1>100\)}
+  \State\([W,H(i:m,i:m),m,k,Ava,least]=\)double-shift-chasing-iteration(\(H(i:m,i:m)\));
+  \State put these orthogonal transform matrixs to orthogonal transform matrix $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\)
+  \State choose si is the size of windows.
+  \State Do a real-schur decompetition to \(H(m-si+1:m,m-si+1:m\)
+  \State Compute \({\widetilde Q^T}H(m - si + 1:m,m - 1)\) and find all converged eigenvalues
+  \If{There is not enough eigenvalues converged}
+    \State Continue
+  \EndIf
+  \State Do an orderschur to \(H(m-si+1:m,m-si+1:m\) and make every converged eigenvalues to be at the bottom
+  \State Put \({\widetilde Q}\) to \(H(1:m-si,m-si+1:n)\) and \(H(m-si+1:n,m+1:n)\)
+  \State Do Givens rotations to transfrom H to a hessenberg matrix. Put these Givens to \(Q\)
+  \EndWhile
+  \State use Sextuple-S0hift-QR-Algorithm to\(H(i:m,i:m)\), put \(\widetilde Q\) to\(H(1:i-1,i:m)\),\(H(i:m,m+1:n)\),\(Q(1:n,i:m)\)
+  \end{algorithmic}
+\end{breakablealgorithm}

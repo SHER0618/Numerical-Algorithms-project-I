@@ -1,0 +1,9 @@
+\contentsline {chapter}{\numberline {1}Traditional QR Algorithm with double and more shifts}{2}%
+\contentsline {section}{\numberline {1.1}The Double-Implict-Shift Strategy}{2}%
+\contentsline {section}{\numberline {1.2}The Sextuple-Implicit-Shift Strategy}{4}%
+\contentsline {chapter}{\numberline {2}Aggressive Early Defaltion for The Multishift QR Algorithm}{7}%
+\contentsline {section}{\numberline {2.1}The small-bulge multishift QR Algorithm}{7}%
+\contentsline {section}{\numberline {2.2}Aggressive Early Deflation and the details for choices of shifts}{9}%
+\contentsline {chapter}{\numberline {3}The numerical experiments}{11}%
+\contentsline {chapter}{\numberline {A.}Reference For Test}{15}%
+\contentsline {chapter}{\numberline {B.}The Matlab Source Code}{16}%

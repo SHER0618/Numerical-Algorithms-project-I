@@ -1,0 +1,63 @@
+\documentclass[UTF8]{report}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{lipsum,float}
+\usepackage{geometry}
+\usepackage{graphicx} %use graph format
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{subfigure}
+\input{code-configuration}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\renewcommand{\bibname}{Reference}
+
+\title{\Huge \textbf{QR Algorithm}}
+\author{Jingxiang Wu}
+\date{\today}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+   \end{center}
+  }
+\makeatother
+\begin{document}\large
+\maketitle
+\tableofcontents
+\chapter{Traditional QR Algorithm with double and more shifts}
+
+In this chapter,we will talk about the traditional QR Algorithm with double and more shifts, giving complete algorithm and related details of this algorithm.
+\section{The Double-Implict-Shift Strategy}
+\input{part1-1}
+\section{The Sextuple-Implicit-Shift Strategy}
+\input{part1-2}
+\chapter{Aggressive Early Defaltion for The Multishift QR Algorithm}
+In this chapter, we will talk about The Multishift QR Algorithm based on BLAS 3 performance and Aggressive Early Deflation Strategy, which is a really aggressive but correct strategy. These methods help us to solve dense unsymmetric matrices of size several thousands without losing too much accuracy.
+\section{The small-bulge multishift QR Algorithm}\cite{MQRC}
+\input{part2-1}
+\section{Aggressive Early Deflation and the details for choices of shifts}\cite{AED}
+\input{part2-2}
+\chapter{The numerical experiments}
+\input{part3}
+\begin{appendix}
+\input{Appendix}
+\end{appendix}
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}

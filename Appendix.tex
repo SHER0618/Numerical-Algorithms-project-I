@@ -1,0 +1,48 @@
+    \renewcommand{\thechapter}{\Alph{chapter}.}
+    \chapter{Reference For Test}
+    We test \(schur( )\) in Matlab as a reference, see the chart:
+    \begin{table}[H]
+\large
+\begin{tabular}{|c|c|c|c|}
+\hline
+The order of matrix & The running time & The order of matrix & The running time \\ \hline
+500                 & 0.6778           & 3500                & 14.6267          \\ \hline
+1000                & 1.0522           & 4000                & 21.4383          \\ \hline
+1500                & 1.1638           & 4500                & 29.2893          \\ \hline
+2000                & 3.1954           & 5000                & 39.6178          \\ \hline
+2500                & 6.4821           & 5500                & 53.0618          \\ \hline
+3000                & 10.0568          & 6000                & 69.6150          \\ \hline
+\end{tabular}
+\end{table}
+And the following chart shows the configuration of my computer
+\begin{table}[H]
+\large
+\begin{tabular}{|c|c|}
+\hline
+CPU model       & Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz \\ \hline
+base frequency  & 2.6GHz                                    \\ \hline
+turbo frequency & 5GHz                                      \\ \hline
+Core number     & 6                                         \\ \hline
+Threads number  & 12                                        \\ \hline
+L1 cache        & 384kB                                     \\ \hline
+L2 cache        & 1.5MB                                     \\ \hline
+L3 cache        & 12.0MB                                    \\ \hline
+Memory          & 32GB                                      \\ \hline
+\end{tabular}
+\end{table}
+    \chapter{The Matlab Source Code}
+    \lstinputlisting{household.m}
+    \lstinputlisting{hessenberg.m}
+    \lstinputlisting{double_shift_QR_iteration.m}
+    \lstinputlisting{double_shift_QR_algorithm.m}
+    \lstinputlisting{sextuple_shift_QR_iteration.m}
+    \lstinputlisting{sextuple_shift_QR_algorithm.m}
+    \lstinputlisting{double_shift_chasing_iteration.m}
+    \lstinputlisting{eig_search.m}
+    \lstinputlisting{choose.m}
+    \lstinputlisting{aggressive_early_deflation.m}
+    \lstinputlisting{project_traditional_running_time.m}
+    \lstinputlisting{project_AED_running_time1.m}
+    \lstinputlisting{project_hessenberg.m}
+    \lstinputlisting{project_AED_running_time2.m}
+    \lstinputlisting{project_the_numerical_stability.m}

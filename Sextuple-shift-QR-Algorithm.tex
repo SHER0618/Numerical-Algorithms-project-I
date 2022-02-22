@@ -1,0 +1,31 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Sextuple-shift-QR-algorithm}
+  \label{alg::Sextuple-shift-QR-algorithm}
+  \begin{algorithmic}[1]
+  \Require $A$:a dense matrix; $flag$:flag equals 0 means this matrix is a hessenberg matrix
+  \Ensure $E$:all eigenvalue of A;$H$:a real-schur form matrix;$Q$:orthogonal transform matrix satisfy \(AQ=QH\)
+  \State\(Q={I_n}\);
+  \If {\(flag=1\)}
+    \State\([Q,H]=hessenberg(H)\)
+  \EndIf
+  \State\(i=1\);
+  \State\(m=n\);
+  \State\(tol={10^{-15}}\);
+  \While{\(m-i+1>6\)}
+  \State\([W,H(i:m,i:m)]=\)double-shift-QR-iteration(\(H(i:m,i:m)\));
+  \State put these household vector to orthogonal transform matrix $Q$,\(H(1:i-1,i:m)\) and \(H(i:m,m+1:n)\)
+  \State Finding eigenvalues of converged in the upper left corner of (\(H(i:m,i:m)\))
+  \State Finding eigenvalues of converged in the lower right corner of (\(H(i:m,i:m)\))
+  \If{There is no converged eigenvalue}
+    \State Continue
+  \EndIf
+  \State Suppose the number of converged eigenvalues is k,\(k\le6\)
+  \State use Double-shift-QR-algorithm to \(H(m-k+1:m,m-k+1:m)\), put \(\widetilde Q\) to \(H(1:m-k,m-k+1:m)\),\(H(m-k+1:m,m+1:n)\),\(Q(1:n,m-k+1:m)\)
+  \EndWhile
+  \If{\((m>i)\)}
+    \State use Double-shift-QR-algorithm to\(H(i:m,i:m)\), put \(\widetilde Q\) to\(H(1:i-1,i:m)\),\(H(i:m,m+1:n)\),\(Q(1:n,i:m)\)
+  \EndIf
+  \end{algorithmic}
+\end{breakablealgorithm}

@@ -1,0 +1,18 @@
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{breakablealgorithm}
+  \caption{Hessenberg}
+  \label{alg::Hessenberg}
+  \begin{algorithmic}[1]
+    \Require $A$: a hessenberg matrix
+    \Ensure $H$: a hessenberg matrix;$Q$: orthogonal transform matrix satisfy \(AQ=QH\)
+    \State\(Q=I_n\);
+    \For{$i=1$ to $n-2$}
+        \State\(w=household(H(i+1:n,i))\)
+        \State\(H(i+1:n,i:n)=(I-2w{w^T})H(i+1:n,i:n)\)
+        \State\(H(1:n,i+1:n)=H(1:n,i+1:n)(I-2w{w^T})\)
+        \State\(Q(1:n,i+1:n)=Q(1:n,i+1:n)(I-2w{w^T})\)
+        \State\(H(i+2:n,i)=0\)
+    \EndFor
+  \end{algorithmic}
+\end{breakablealgorithm}
